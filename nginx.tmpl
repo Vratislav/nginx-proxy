@@ -104,7 +104,7 @@ upstream {{ $host }} {
 					{{ template "upstream" (dict "Container" $container "Address" $address "Network" $containerNetwork) }}
 				{{/* If more than one port exposed, use the one matching after the colon in VIRTUAL_HOST env var */}}
 				{{ else if (and ($port ) (ne $port $host) ) }}
-					{{ range $address := .Addresses }}
+					{{ range $address := $container.Addresses }}
 					   {{ if eq $address.Port $port }}
 						{{ template "upstream" (dict "Container" $container "Address" $address "Network" $containerNetwork) }}
 					   {{ end }}
